@@ -5,19 +5,18 @@
  */
 package classes;
 
-import java.awt.event.KeyEvent;
+import java.util.Arrays;
+
 
 /**
  *
- * @author lab4_6
+ * @author Jonatas
  */
 public class MainScreen extends javax.swing.JFrame {
-    boolean ponto = false;
-    boolean contafloat = false;
-    int numcount = 0;
-    int opcount = 0;
-    String num[] = new String[30];
-    int op[] = new int [30];
+    //Declaração de variáveis globais
+    boolean ponto = false;            //identifica se foi utilizado ponto flutuante
+    int exprecount = 0;               //contador da posição da expressão no vetor
+    String expre[] = new String[30];  //Vetor que armazena a expressão matemática
 
     /**
      * Creates new form MainScreen
@@ -36,7 +35,6 @@ public class MainScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         lblExpressao = new javax.swing.JLabel();
-        lblVisor = new javax.swing.JLabel();
         btnCE = new javax.swing.JButton();
         btnPorc = new javax.swing.JButton();
         btnFecharParent = new javax.swing.JButton();
@@ -67,6 +65,8 @@ public class MainScreen extends javax.swing.JFrame {
         btnLN = new javax.swing.JButton();
         btnLog = new javax.swing.JButton();
         btnMem = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lblVisor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -78,13 +78,6 @@ public class MainScreen extends javax.swing.JFrame {
         lblExpressao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lblExpressao.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblExpressao.setOpaque(true);
-
-        lblVisor.setBackground(new java.awt.Color(255, 255, 255));
-        lblVisor.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        lblVisor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblVisor.setText("0");
-        lblVisor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        lblVisor.setOpaque(true);
 
         btnCE.setText("CE");
         btnCE.addActionListener(new java.awt.event.ActionListener() {
@@ -257,84 +250,95 @@ public class MainScreen extends javax.swing.JFrame {
         btnMem.setFont(new java.awt.Font("Arial Narrow", 1, 12)); // NOI18N
         btnMem.setText("Bcks");
 
+        lblVisor.setBackground(new java.awt.Color(255, 255, 255));
+        lblVisor.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        lblVisor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblVisor.setText("0");
+        lblVisor.setAutoscrolls(true);
+        lblVisor.setOpaque(true);
+        jScrollPane1.setViewportView(lblVisor);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnPi, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLog, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn0, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnIgual, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSoma, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSen, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPow, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnTan, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLN, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSub, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnMult, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblVisor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblExpressao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnFatorial, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAbrirParent, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFecharParent, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPorc, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCE, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnMem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnPi, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLog, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn0, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnIgual, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSoma, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnSen, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPow, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnTan, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLN, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSub, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnCos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRaiz, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMult, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblExpressao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnFatorial, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAbrirParent, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnFecharParent, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPorc, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCE, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblExpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(lblVisor)
+                .addComponent(lblExpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -384,261 +388,158 @@ public class MainScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("1");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "1");
-        }
+        // Mostra o nº 1 no visor e armazena no vetor de expressão
+        addNumero("1"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("0");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "0");
-        }
+         // Mostra o nº 0 no visor e armazena no vetor de expressão
+        addNumero("0"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn0ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("2");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "2");
-        }
+        // Mostra o nº 2 no visor e armazena no vetor de expressão
+        addNumero("2"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("3");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "3");
-        }
+        // Mostra o nº 3 no visor e armazena no vetor de expressão
+        addNumero("3"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal                                   
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("4");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "4");
-        }
+        // Mostra o nº 4 no visor e armazena no vetor de expressão
+        addNumero("4"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("5");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "5");
-        }
+       // Mostra o nº 5 no visor e armazena no vetor de expressão
+        addNumero("5"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("6");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "6");
-        }
+        // Mostra o nº 6 no visor e armazena no vetor de expressão
+        addNumero("6"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("7");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "7");
-        }
+        // Mostra o nº 7 no visor e armazena no vetor de expressão
+        addNumero("7"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn7ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("8");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "8");
-        }
+        // Mostra o nº 8 no visor e armazena no vetor de expressão
+        addNumero("8"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        // TODO add your handling code here:
-        if (lblVisor.getText().equals("0")){
-            lblVisor.setText("9");
-        } else {
-            lblVisor.setText(lblVisor.getText()+ "9");
-        }
+        // Mostra o nº 9 no visor e armazena no vetor de expressão
+        addNumero("9"); //Chama o procedimento e passa o valor a ser adicionado
+        // Essa parte é apenas para debug
+        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btnCEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCEActionPerformed
-        // TODO add your handling code here:
-        lblVisor.setText("0");
-        this.ponto = false;
-        this.numcount = 0;
-        this.opcount = 0;
+        // Procedimento para limpar e resetar todas as variáveis
+        lblVisor.setText("0"); //Define o visor com o nº 0
+        this.ponto = false; // Seta o verificador de ponto flutuante pra falso
+        this.exprecount = 0; // Zera o contador do vetor de expressão
+        Arrays.fill(expre, null); //Anula o vetor de expressão
     }//GEN-LAST:event_btnCEActionPerformed
 
     private void btnPontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPontoActionPerformed
-        // TODO add your handling code here:
-        if (!this.ponto){
-            lblVisor.setText(lblVisor.getText() + ".");
-            this.ponto = true;
-            this.contafloat = true;
-        }
+        // Adiciona ponto flutuante ao número
+        if (!this.ponto) { // Verifica se o ponto flutuante já foi utilizado pelo número atual
+            if (expre[exprecount] == null || expre[exprecount].equals("0")) { // Verifica se nenhum numero foi inserido
+                lblVisor.setText("0."); //Adiciona o ponto no visor  
+                this.expre[exprecount] = "0."; //Adiciona o ponto no vetor
+                this.ponto = true; //Seta como ponto flutuante já usado
+            } else { //Se já tem algum numero informado
+                lblVisor.setText(lblVisor.getText() + "."); //Adiciona o ponto ao número no visor
+                this.expre[exprecount] += "."; //Adiciona o ponto no vetor
+                this.ponto = true; //Seta como ponto flutuante já usado
+            }
+        } // Se já foi utilizado ponto flutuante, não faz nada
     }//GEN-LAST:event_btnPontoActionPerformed
 
     private void btnSomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSomaActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        lblExpressao.setText(lblExpressao.getText() + lblVisor.getText() + " + ");
-        lblVisor.setText("");
-        op[opcount] = 1;
-        numcount++;
-        opcount++;
+        // Define a operação de soma
+        addOperacao("+");
     }//GEN-LAST:event_btnSomaActionPerformed
 
     private void btnSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        lblExpressao.setText(lblExpressao.getText() + lblVisor.getText() + " - ");
-        lblVisor.setText("");
-        op[opcount] = 2;
-        numcount++;
-        opcount++;
+        // Define a operação de subtração
+        addOperacao("-");
     }//GEN-LAST:event_btnSubActionPerformed
 
     private void btnMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        lblExpressao.setText(lblExpressao.getText() + lblVisor.getText() + " * ");
-        lblVisor.setText("");
-        op[opcount] = 3;
-        numcount++;
-        opcount++;
+        // Define a operação de multiplicação
+        addOperacao("*");
     }//GEN-LAST:event_btnMultActionPerformed
 
     private void btnDivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDivActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        lblExpressao.setText(lblExpressao.getText() + lblVisor.getText() + " / ");
-        lblVisor.setText("");
-        op[opcount] = 4;
-        numcount++;
-        opcount++;
+        // Define a operação de divisão
+        addOperacao("/");
     }//GEN-LAST:event_btnDivActionPerformed
 
     private void btnPorcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorcActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        lblExpressao.setText(lblExpressao.getText() + lblVisor.getText() + " % ");
-        lblVisor.setText("");
-        op[opcount] = 5;
-        numcount++;
-        opcount++;
+        // Define a operação de porcentagem
+        addOperacao("%");
     }//GEN-LAST:event_btnPorcActionPerformed
 
     private void btnPowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPowActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        op[opcount] = 6;
-        numcount++;
-        opcount++;
+        // Define a operação de potência
+        addOperacao("^");
     }//GEN-LAST:event_btnPowActionPerformed
 
     private void btnRaizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRaizActionPerformed
         // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        op[opcount] = 7;
-        numcount++;
-        opcount++;
+        addOperacao("√");
     }//GEN-LAST:event_btnRaizActionPerformed
 
     private void btnAbrirParentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirParentActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        op[opcount] = 8;
-        numcount++;
-        opcount++;
+        // Abrir parenteses
+        if (exprecount==0 && expre[exprecount]==null){ // Verifica se é o primeiro comando inserido
+            expre[0] = "("; // Define abrir parenteses
+            lblVisor.setText("("); //Mostra abrir parenteses no visor
+            exprecount++; // soma um no contador de expressões
+        } else {
+            exprecount++; //soma um no contador de expressões
+            expre[exprecount] = "("; //Define abrir parenteses
+            lblVisor.setText(lblVisor.getText() + "("); //Mostra abrir parenteses no visor
+            exprecount++; //prepara o vetor p/ o próximo número
+        }
     }//GEN-LAST:event_btnAbrirParentActionPerformed
 
     private void btnFecharParentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharParentActionPerformed
-        // TODO add your handling code here:
-        num[numcount] = lblVisor.getText();
-        op[opcount] = 9;
-        numcount++;
-        opcount++;
+        // Fechar parenteses
+        if (!(exprecount==0)){ // Verifica se NÃO é o primeiro comando inserido
+            exprecount++; //soma um no contador de expressões
+            expre[exprecount] = ")"; //Define fechar parenteses
+            lblVisor.setText(lblVisor.getText() + ")");
+            exprecount++; //prepara o vetor p/ o próximo número
+        } // Se não, não faz nada
     }//GEN-LAST:event_btnFecharParentActionPerformed
 
     private void btnIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgualActionPerformed
-        // TODO add your handling code here:
-        int abrP = 0;
-        int fecP = 0;
-        int operacao;
-        double num1, num2, res = 0;
-        for (int i = 0; i <= opcount; i++) {
-            if (op[i] == 8) {
-                abrP = i;
-            } else if (op[i] == 9){
-                fecP = i;
-            }
-        }
-        for (int i = ++abrP; i < fecP; i++) {
-            operacao = op[i];
-            switch (operacao){
-                case 1:
-                    num1 = Double.parseDouble(num[i]);
-                    num2 = Double.parseDouble(num[++i]);
-                    res = num1 + num2;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-                case 2:
-                    num1 = Double.parseDouble(num[i]);
-                    num2 = Double.parseDouble(num[++i]);
-                    res = num1 - num2;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-                case 3:
-                    num1 = Double.parseDouble(num[i]);
-                    num2 = Double.parseDouble(num[++i]);
-                    res = num1 * num2;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-                case 4:
-                    num1 = Double.parseDouble(num[i]);
-                    num2 = Double.parseDouble(num[++i]);
-                    res = num1 / num2;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-            }
-        }
-        for (int i = 0; i < abrP; i++) {
-            operacao = op[i];
-            switch (operacao){
-                case 1:
-                    num1 = Double.parseDouble(num[i]);
-                    res += num1;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-                case 2:
-                    num1 = Double.parseDouble(num[i]);
-                    res -= num1;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-                case 3:
-                    num1 = Double.parseDouble(num[i]);
-                    res *= num1;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-                case 4:
-                    num1 = Double.parseDouble(num[i]);
-                    res /= num1;
-                    lblVisor.setText(Double.toString(res));
-                    break;
-            }
-        }
         
     }//GEN-LAST:event_btnIgualActionPerformed
 
@@ -676,7 +577,39 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public void addNumero(String valor){
+        // Procedimento que mostra o nº no visor e armazena no vetor de expressão
+        if (this.expre[exprecount]==null || this.expre[exprecount].equals("0")){    // verifica se o vetor é nulo ou 0
+            if (this.exprecount == 0) { // verifica se é a primeira parte de uma expressão
+                lblVisor.setText(valor);              // se sim, substitui 0 pelo valor no visor
+                this.expre[exprecount] = valor;       //muda o valor do vetor para o valor
+            } else {
+                lblVisor.setText(lblVisor.getText()+ valor); // se não, concatena o valor ao restante já mostrado
+                this.expre[exprecount] = valor;       //muda o valor do vetor para o valor
+            }
+        } else {
+            lblVisor.setText(lblVisor.getText()+ valor); // se não, concatena o valor ao restante já mostrado
+            this.expre[exprecount] += valor; //concatena o valor  na expressão na posição atual
+        }
+    }
+    
+    public void addOperacao(String op){
+        //Procedimento de define a operação a ser realizada e prepara o vetor p/ o próximo nº
+        if (exprecount == 0 && lblVisor.getText().equals("0")){ //Verifica se é o primeiro comando digitado na calculadora
+            this.expre[0] = "0"; //Seta primeiro número como 0
+        }
+        exprecount++; //adiciona um no contador para a operação
+        this.expre[exprecount]=op; //Define a operação a ser realizada
+        lblVisor.setText(lblVisor.getText() + op); //Mostra a operação no visor
+        exprecount++; // Adiciona mais um contador para o próximo número
+        this.ponto = false; //Seta como ponto flutuante ainda não usado para o próximo número
+        //Essa parte é só p/ debug
+        for (int i = 0; i < exprecount; i++) { //Monta estrutura de repetição que vasculha o vetor de expressões
+            System.out.print(expre[i]); //Mostra no terminal o conteúdo do vetor de expressões na posição indicada
+        }
+        System.out.println(""); //Pula uma linha no terminal
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn0;
     private javax.swing.JButton btn1;
@@ -708,6 +641,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnSoma;
     private javax.swing.JButton btnSub;
     private javax.swing.JButton btnTan;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblExpressao;
     private javax.swing.JLabel lblVisor;
     // End of variables declaration//GEN-END:variables
