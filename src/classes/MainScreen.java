@@ -5,8 +5,11 @@
  */
 package classes;
 
-import java.util.Arrays;
-import javax.script.AbstractScriptEngine;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 
 /**
@@ -16,10 +19,11 @@ import javax.script.AbstractScriptEngine;
 public class MainScreen extends javax.swing.JFrame {
     //Declaração de variáveis globais
     boolean ponto = false;            //identifica se foi utilizado ponto flutuante
-    int exprecount = 0;               //contador da posição da expressão no vetor
-    String expre[] = new String[30];  //Vetor que armazena a expressão matemática
-    boolean abrP = false;             //Identifica se foi aberto parenteses na expressão
+    String expre = "0";               //String que armazena a expressão matemática
+    int abrP = 0;             //Identifica se foi aberto parenteses na expressão
     double res;
+    ScriptEngineManager manager = new ScriptEngineManager();
+    ScriptEngine engine = manager.getEngineByName("js");
     /**
      * Creates new form MainScreen
      */
@@ -110,6 +114,11 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         btnFatorial.setText("!");
+        btnFatorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFatorialActionPerformed(evt);
+            }
+        });
 
         btnDiv.setText("/");
         btnDiv.addActionListener(new java.awt.event.ActionListener() {
@@ -391,91 +400,71 @@ public class MainScreen extends javax.swing.JFrame {
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         // Mostra o nº 1 no visor e armazena no vetor de expressão
         addNumero("1");                          //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]);   // Retorna o valor no terminal
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
          // Mostra o nº 0 no visor e armazena no vetor de expressão
         addNumero("0");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn0ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         // Mostra o nº 2 no visor e armazena no vetor de expressão
         addNumero("2");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
         // Mostra o nº 3 no visor e armazena no vetor de expressão
         addNumero("3");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal                                   
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
         // Mostra o nº 4 no visor e armazena no vetor de expressão
         addNumero("4");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
        // Mostra o nº 5 no visor e armazena no vetor de expressão
         addNumero("5");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
         // Mostra o nº 6 no visor e armazena no vetor de expressão
         addNumero("6");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
         // Mostra o nº 7 no visor e armazena no vetor de expressão
         addNumero("7");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn7ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
         // Mostra o nº 8 no visor e armazena no vetor de expressão
         addNumero("8");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
         // Mostra o nº 9 no visor e armazena no vetor de expressão
         addNumero("9");                        //Chama o procedimento e passa o valor a ser adicionado
-        // Essa parte é apenas para debug
-        System.out.println(expre[exprecount]); // Retorna o valor no terminal
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btnCEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCEActionPerformed
         // Procedimento para limpar e resetar todas as variáveis
+        lblExpressao.setText("");
         lblVisor.setText("0");          //Define o visor com o nº 0
         this.ponto = false;             //Seta o verificador de ponto flutuante pra falso
-        this.exprecount = 0;            //Zera o contador do vetor de expressão
-        Arrays.fill(expre, null);       //Anula o vetor de expressão
+        this.expre = "0";
     }//GEN-LAST:event_btnCEActionPerformed
 
     private void btnPontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPontoActionPerformed
         // Adiciona ponto flutuante ao número
         if (!this.ponto) {                                                    //Verifica se o ponto flutuante já foi utilizado pelo número atual
-            if (expre[exprecount] == null || expre[exprecount].equals("0")) { //Verifica se nenhum numero foi inserido
+            if (expre.equals("0")) {                                           //Verifica se nenhum numero foi inserido
                 lblVisor.setText("0.");                                       //Adiciona o ponto no visor  
-                this.expre[exprecount] = "0.";                                //Adiciona o ponto no vetor
+                this.expre = "0.";                                            //Adiciona o ponto no vetor
                 this.ponto = true;                                            //Seta como ponto flutuante já usado
             } else {                                                          //Se já tem algum numero informado
                 lblVisor.setText(lblVisor.getText() + ".");                   //Adiciona o ponto ao número no visor
-                this.expre[exprecount] += ".";                                //Adiciona o ponto no vetor
+                this.expre += ".";                                            //Adiciona o ponto no vetor
                 this.ponto = true;                                            //Seta como ponto flutuante já usado
             }
         }                                                                     // Se já foi utilizado ponto flutuante, não faz nada
@@ -513,43 +502,91 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void btnRaizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRaizActionPerformed
         // Define a operação de raiz
-        addOperacao("√");
+        if (expre.equals("0")){
+            expre = "Math.sqrt(";
+            lblVisor.setText("√(");
+        } else {
+            expre += "Math.sqrt(";
+            lblVisor.setText(lblVisor.getText() + "√(");
+        }
+        abrP++;
     }//GEN-LAST:event_btnRaizActionPerformed
 
     private void btnAbrirParentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirParentActionPerformed
         // Abrir parenteses
-        if (exprecount==0 || expre[exprecount]==null){      //Verifica se é o primeiro comando inserido
-            expre[0] = "(";                                 //Define abrir parenteses
+        if (expre.equals("0")){                             //Verifica se é o primeiro comando inserido
+            expre = "(";                                    //Define abrir parenteses
             lblVisor.setText("(");                          //Mostra abrir parenteses no visor
-        } else { 
-            if (exprecount > 0 && !expre[exprecount - 1].equals("+") ){
-                exprecount++;                               //soma um no contador de expressões
+        } else {
+            switch (expre.charAt(expre.length() - 1)){
+                case '+':
+                case '-':
+                case '/':
+                case '*':
+                    expre += "(";
+                    break;
+                default:
+                    expre += "*(";
+                    break;
             }
-            expre[exprecount] = "(";                        //Define abrir parenteses
             lblVisor.setText(lblVisor.getText() + "(");     //Mostra abrir parenteses no visor
         }
-        exprecount++;                                       //prepara o vetor p/ o próximo número
         this.ponto = false;                                 //Indica que o ponto flutuante pode ser usado de novo
-        this.abrP = true;                                   //
+        this.abrP++;                                   //
     }//GEN-LAST:event_btnAbrirParentActionPerformed
 
     private void btnFecharParentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharParentActionPerformed
         // Fechar parenteses
-        if (!(exprecount==0) && !(lblVisor.getText().equals("0")) && this.abrP){ // Verifica se NÃO é o primeiro comando inserido e se o pareteses foi aberto
-            exprecount++;                                                        //soma um no contador de expressões
-            expre[exprecount] = ")";                                             //Define fechar parenteses
-            lblVisor.setText(lblVisor.getText() + ")");                          //Mostra ')' no visor
-            exprecount++;
+        if (!expre.equals("0") && (abrP > 0)){                       // Verifica se NÃO é o primeiro comando inserido e se o pareteses foi aberto
+            if (!this.ponto){
+                this.expre += ".0";
+                this.ponto=true;
+            }
+            expre += ")";                                             //Define fechar parenteses
+            lblVisor.setText(lblVisor.getText() + ")");               //Mostra ')' no visor
             this.ponto = false;
-            this.abrP = false;
+            this.abrP--;
         } // Se não, não faz nada
     }//GEN-LAST:event_btnFecharParentActionPerformed
 
     private void btnIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgualActionPerformed
-        lblExpressao.setText(lblVisor.getText() + " =");
-        calc(0,exprecount);
-        lblVisor.setText(Double.toString(res));
+        while (abrP > 0){
+            expre += ")";
+            lblVisor.setText(lblVisor.getText() + ")");
+            abrP--;
+        }
+        try {
+            res = (double) engine.eval(expre);
+            lblExpressao.setText(lblVisor.getText());
+            lblVisor.setText(Double.toString(res));
+            expre = Double.toString(res);
+            this.ponto=true;
+        } catch (ScriptException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnIgualActionPerformed
+
+    private void btnFatorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFatorialActionPerformed
+        try {
+            //Calcula o Fatorial
+            lblVisor.setText(lblVisor.getName() + "!");
+            if (!ponto) {
+                expre += ".0";
+                ponto = true;
+            }
+            double r = (double) engine.eval(expre);
+            System.out.println(r);
+            double fat = 1;
+            for (double i = r; i > 0; i--) {
+                fat *= i;
+            }
+            lblExpressao.setText(expre);
+            lblVisor.setText(Double.toString(fat));
+            res = fat;
+        } catch (ScriptException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnFatorialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -588,127 +625,28 @@ public class MainScreen extends javax.swing.JFrame {
     
     public void addNumero(String valor){
         // Procedimento que mostra o nº no visor e armazena no vetor de expressão
-        if (this.expre[exprecount]==null || this.expre[exprecount].equals("0")){    // verifica se o vetor é nulo ou 0
-            if (this.exprecount == 0) {                                             // verifica se é a primeira parte de uma expressão
-                lblVisor.setText(valor);                                            // se sim, substitui 0 pelo valor no visor
-                this.expre[exprecount] = valor;                                     //muda o valor do vetor para o valor
-            } else {
-                lblVisor.setText(lblVisor.getText()+ valor);                        // se não, concatena o valor ao restante já mostrado
-                this.expre[exprecount] = valor;                                     //muda o valor do vetor para o valor
-            }
+        if (expre.equals("0")){    // verifica se o vetor é nulo ou 0
+            lblVisor.setText(valor);                                            // se sim, substitui 0 pelo valor no visor
+            this.expre = valor;                                     //muda o valor do vetor para o valor
         } else {
-            lblVisor.setText(lblVisor.getText()+ valor);                            // se não, concatena o valor ao restante já mostrado
-            this.expre[exprecount] += valor;                                        //concatena o valor  na expressão na posição atual
+            lblVisor.setText(lblVisor.getText()+ valor);                        // se não, concatena o valor ao restante já mostrado
+            this.expre += valor;                                     //muda o valor do vetor para o valor
         }
     }
     
     public void addOperacao(String op){
         //Procedimento de define a operação a ser realizada e prepara o vetor p/ o próximo nº
-        if (exprecount == 0 && lblVisor.getText().equals("0")) {                    //Verifica se é o primeiro comando digitado na calculadora
-            this.expre[0] = "0";                                                    //Seta primeiro número como 0
+        if (expre.equals("0")) {                                                 //Verifica se é o primeiro comando digitado na calculadora
+            this.expre = "0.0";                                                  //Seta primeiro número como 0
+            this.ponto = true;
         }
-        if (exprecount > 0 && expre[exprecount - 1].equals(")") && expre[exprecount] == null) {
-            exprecount--;
-        }
-        exprecount++;
-        this.expre[exprecount] = op;                                                //Define a operação a ser realizada
+        if (!this.ponto && expre.charAt(expre.length() - 1) != ')')
+            this.expre += ".0";
+        this.expre += op;                                                           //Define a operação a ser realizada
         lblVisor.setText(lblVisor.getText() + op);                                  //Mostra a operação no visor
-        exprecount++;                                                               //Adiciona mais um contador para o próximo número
         this.ponto = false;                                                         //Seta como ponto flutuante ainda não usado para o próximo número
 
         //Essa parte é só p/ debug
-        for (int i = 0; i < exprecount; i++) {                                      //Monta estrutura de repetição que vasculha o vetor de expressões
-            System.out.print(expre[i]);                                             //Mostra no terminal o conteúdo do vetor de expressões na posição indicada
-        }
-        System.out.println("");                                                     //Pula uma linha no terminal
-    }
-    
-    public void calc(int a, int b) {
-        //Este Procedimento analisa a parte da expressão passada e faz o calculo segundo as regras de precedencia da matemática
-        int expCnt = a;
-        int REcnt = 0;
-        int MDcnt = 0;
-        int SSBcnt = 0;
-        if (a == 0) 
-            a++;
-        String pExp[] = new String [b - a];
-        for (int i = 0; i < b - a ; i++) {
-            pExp[i] = expre[expCnt];
-            expCnt++;
-        }
-        //Debug
-        for (int i = a; i < b; i++) {
-            System.out.print(pExp[i]);
-        }
-        System.out.println("");
-        //fim Debug
-        for (int i = a; i < b; i++) {
-            switch (pExp[i]){
-                case "^":
-                case "√":
-                    REcnt++;
-                    break;
-                case "*":
-                case "/":
-                    MDcnt++;
-                    break;
-                case "+":
-                case "-":
-                    SSBcnt++;
-                    break;
-            }
-            
-        }
-        //Parte só p/ Debug
-        System.out.println(REcnt + " " + MDcnt + " " + SSBcnt);
-        //Fim debug
-        boolean uOpe[] = new boolean[b - a];
-        do {
-        for (int i = a; i < b; i++) {
-            if (pExp[i].equals("^") || pExp[i].equals("√")){
-                if (pExp[i].equals("^")) {
-                    res = Math.pow(Double.parseDouble(pExp[i - 1]), Double.parseDouble(pExp[i + 1]));
-                    uOpe[i] = true;
-                    uOpe[i - 1] = true;
-                    uOpe[i + 1] = true;
-                } else {
-                    res = Math.sqrt(Double.parseDouble(pExp[i + 1]));
-                    uOpe[i] = true;
-                    uOpe[i + 1] = true;
-                }
-                REcnt--;
-            } else if (pExp[i].equals("*") || pExp[i].equals("/")){
-                if (pExp[i].equals("*")) {
-                    res = Double.parseDouble(pExp[i - 1]) * Double.parseDouble(pExp[i + 1]);
-                    uOpe[i] = true;
-                    uOpe[i - 1] = true;
-                    uOpe[i + 1] = true;
-                } else {
-                    res = Double.parseDouble(pExp[i - 1]) / Double.parseDouble(pExp[i + 1]);
-                    uOpe[i] = true;
-                    uOpe[i - 1] = true;
-                    uOpe[i + 1] = true;
-                }
-                MDcnt--;
-            } else if (pExp[i].equals("+") || pExp[i].equals("-")){
-                if (pExp[i].equals("+")) {
-                    res = Double.parseDouble(pExp[i - 1]) + Double.parseDouble(pExp[i + 1]);
-                    uOpe[i] = true;
-                    uOpe[i - 1] = true;
-                    uOpe[i + 1] = true;
-                } else {
-                    res = Double.parseDouble(pExp[i - 1]) - Double.parseDouble(pExp[i + 1]);
-                    uOpe[i] = true;
-                    uOpe[i - 1] = true;
-                    uOpe[i + 1] = true;
-                }
-                SSBcnt--;
-            }
-        }
-        //Parte só p/ Debug
-        System.out.println(REcnt + " " + MDcnt + " " + SSBcnt);
-        //Fim debug
-        } while (REcnt > 0 && MDcnt > 0 && SSBcnt > 0);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn0;
