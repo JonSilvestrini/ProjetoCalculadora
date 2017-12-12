@@ -29,7 +29,6 @@ public class MainScreen extends javax.swing.JFrame {
      */
     public MainScreen() {
         initComponents();
-        //tbtnOnOff.
     }
 
     /**
@@ -81,10 +80,16 @@ public class MainScreen extends javax.swing.JFrame {
         setResizable(false);
 
         tbtnOnOff.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        tbtnOnOff.setSelected(true);
         tbtnOnOff.setText("<html>ON/<br>OFF</html>");
         tbtnOnOff.setMaximumSize(new java.awt.Dimension(37, 23));
         tbtnOnOff.setMinimumSize(new java.awt.Dimension(37, 23));
         tbtnOnOff.setPreferredSize(new java.awt.Dimension(37, 23));
+        tbtnOnOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnOnOffActionPerformed(evt);
+            }
+        });
 
         lblExpressao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblExpressao.setForeground(new java.awt.Color(102, 102, 102));
@@ -556,6 +561,7 @@ public class MainScreen extends javax.swing.JFrame {
                 case '-':
                 case '/':
                 case '*':
+                case '(':
                     expre += "(";
                     break;
                 default:
@@ -707,8 +713,79 @@ public class MainScreen extends javax.swing.JFrame {
                     break;
             }
         lblVisor.setText(lblVisor.getText() + "π");
+        ponto = true;
         }
     }//GEN-LAST:event_btnPiActionPerformed
+
+    private void tbtnOnOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnOnOffActionPerformed
+        // TODO add your handling code here:
+        if (!tbtnOnOff.isSelected()){
+            lblVisor.setText("");
+            lblExpressao.setText("");
+            lblVisor.setEnabled(false);
+            lblExpressao.setEnabled(false);
+            btn0.setEnabled(false);
+            btn1.setEnabled(false);
+            btn2.setEnabled(false);
+            btn3.setEnabled(false);
+            btn4.setEnabled(false);
+            btn5.setEnabled(false);
+            btn6.setEnabled(false);
+            btn7.setEnabled(false);
+            btn8.setEnabled(false);
+            btn9.setEnabled(false);
+            btnCE.setEnabled(false);
+            btnAbrirParent.setEnabled(false);
+            btnFecharParent.setEnabled(false);
+            btnDiv.setEnabled(false);
+            btnSoma.setEnabled(false);
+            btnMult.setEnabled(false);
+            btnSub.setEnabled(false);
+            btnIgual.setEnabled(false);
+            btnCos.setEnabled(false);
+            btnSen.setEnabled(false);
+            btnTan.setEnabled(false);
+            btnLog.setEnabled(false);
+            btnPonto.setEnabled(false);
+            btnPi.setEnabled(false);
+            btnPorc.setEnabled(false);
+            btnPow.setEnabled(false);
+            btnRaiz.setEnabled(false);
+            btnFatorial.setEnabled(false);
+        } else {
+            lblVisor.setText("0");
+            lblVisor.setEnabled(true);
+            lblExpressao.setEnabled(true);
+            btn0.setEnabled(true);
+            btn1.setEnabled(true);
+            btn2.setEnabled(true);
+            btn3.setEnabled(true);
+            btn4.setEnabled(true);
+            btn5.setEnabled(true);
+            btn6.setEnabled(true);
+            btn7.setEnabled(true);
+            btn8.setEnabled(true);
+            btn9.setEnabled(true);
+            btnCE.setEnabled(true);
+            btnAbrirParent.setEnabled(true);
+            btnFecharParent.setEnabled(true);
+            btnDiv.setEnabled(true);
+            btnSoma.setEnabled(true);
+            btnMult.setEnabled(true);
+            btnSub.setEnabled(true);
+            btnIgual.setEnabled(true);
+            btnCos.setEnabled(true);
+            btnSen.setEnabled(true);
+            btnTan.setEnabled(true);
+            btnLog.setEnabled(true);
+            btnPonto.setEnabled(true);
+            btnPi.setEnabled(true);
+            btnPorc.setEnabled(true);
+            btnPow.setEnabled(true);
+            btnRaiz.setEnabled(true);
+            btnFatorial.setEnabled(true);
+        }
+    }//GEN-LAST:event_tbtnOnOffActionPerformed
 
     /**
      * @param args the command line arguments
