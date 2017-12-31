@@ -74,14 +74,9 @@ public class MainScreen extends javax.swing.JFrame {
         lblVisor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("jCalculator");
-        setAlwaysOnTop(true);
         setName("jCalculator"); // NOI18N
-        setResizable(false);
 
         tbtnOnOff.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        tbtnOnOff.setSelected(true);
-        tbtnOnOff.setText("<html>ON/<br>OFF</html>");
         tbtnOnOff.setMaximumSize(new java.awt.Dimension(37, 23));
         tbtnOnOff.setMinimumSize(new java.awt.Dimension(37, 23));
         tbtnOnOff.setPreferredSize(new java.awt.Dimension(37, 23));
@@ -91,203 +86,174 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        lblExpressao.setBackground(null);
         lblExpressao.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblExpressao.setForeground(new java.awt.Color(102, 102, 102));
         lblExpressao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblExpressao.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lblExpressao.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        lblExpressao.setOpaque(true);
 
-        btnCE.setText("CE");
         btnCE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCEActionPerformed(evt);
             }
         });
 
-        btnPorc.setText("%");
         btnPorc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPorcActionPerformed(evt);
             }
         });
 
-        btnFecharParent.setText(")");
         btnFecharParent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFecharParentActionPerformed(evt);
             }
         });
 
-        btnAbrirParent.setText("(");
         btnAbrirParent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirParentActionPerformed(evt);
             }
         });
 
-        btnFatorial.setText("!");
         btnFatorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFatorialActionPerformed(evt);
             }
         });
 
-        btnDiv.setText("/");
         btnDiv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDivActionPerformed(evt);
             }
         });
 
-        btn9.setText("9");
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn9ActionPerformed(evt);
             }
         });
 
-        btn8.setText("8");
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn8ActionPerformed(evt);
             }
         });
 
-        btn7.setText("7");
         btn7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7ActionPerformed(evt);
             }
         });
 
-        btnMult.setText("*");
         btnMult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMultActionPerformed(evt);
             }
         });
 
-        btn6.setText("6");
         btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn6ActionPerformed(evt);
             }
         });
 
-        btn5.setText("5");
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn5ActionPerformed(evt);
             }
         });
 
-        btn4.setText("4");
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn4ActionPerformed(evt);
             }
         });
 
-        btnSub.setText("-");
         btnSub.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubActionPerformed(evt);
             }
         });
 
-        btn3.setText("3");
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn3ActionPerformed(evt);
             }
         });
 
-        btn2.setText("2");
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn2ActionPerformed(evt);
             }
         });
 
-        btn1.setText("1");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1ActionPerformed(evt);
             }
         });
 
-        btnSoma.setText("+");
         btnSoma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSomaActionPerformed(evt);
             }
         });
 
-        btnIgual.setText("=");
         btnIgual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIgualActionPerformed(evt);
             }
         });
 
-        btn0.setText("0");
         btn0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn0ActionPerformed(evt);
             }
         });
 
-        btnPonto.setText(".");
         btnPonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPontoActionPerformed(evt);
             }
         });
 
-        btnPow.setText("<html>X<sup>y</sup></html>");
         btnPow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPowActionPerformed(evt);
             }
         });
 
-        btnPi.setText("π");
         btnPi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPiActionPerformed(evt);
             }
         });
 
-        btnSen.setText("sin");
         btnSen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSenActionPerformed(evt);
             }
         });
 
-        btnCos.setText("cos");
         btnCos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCosActionPerformed(evt);
             }
         });
 
-        btnRaiz.setText("<html>&#8730</html>");
         btnRaiz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRaizActionPerformed(evt);
             }
         });
 
-        btnTan.setText("tan");
         btnTan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTanActionPerformed(evt);
             }
         });
 
-        btnLog.setText("log");
         btnLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogActionPerformed(evt);
@@ -297,9 +263,6 @@ public class MainScreen extends javax.swing.JFrame {
         lblVisor.setBackground(new java.awt.Color(255, 255, 255));
         lblVisor.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         lblVisor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblVisor.setText("0");
-        lblVisor.setAutoscrolls(true);
-        lblVisor.setOpaque(true);
         jScrollPane1.setViewportView(lblVisor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
